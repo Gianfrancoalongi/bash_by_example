@@ -19,15 +19,9 @@ handle_command() {
 	    handle_register_command
 	    ;;
 	BREW)
-	    grep -q "${REST}" users.db
-	    if [[ $? != 0 ]]
-	    then
-		REPLY='WRONG_PASSWORD'
-	    else
-		REPLY='BREWING'
-	    fi
+	    handle_brew_command
 	    ;;
-	DEREGISTER)
+	DEREGISTER)	   
 	    grep -q "${REST}" users.db
 	    if [[ $? != 0 ]]
 	    then 
@@ -49,6 +43,16 @@ handle_register_command() {
     else
 	echo ${REST} >> users.db
 	REPLY='OK'
+    fi
+}
+
+handle_brew_command() {
+    grep -q "${REST}" users.db
+    if [[ $? != 0 ]]
+    then
+	REPLY='WRONG_PASSWORD'
+    else
+	REPLY='BREWING'
     fi
 }
 
