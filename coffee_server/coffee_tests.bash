@@ -5,6 +5,7 @@ tests()
     start_coffee_server
     send 'REGISTER JOHN 11AA11'
     result_equals 'OK'
+    is_in_user_db 'JOHN 11AA11'
 
     start_coffee_server
     send 'BREW JOHN AA11AA'
@@ -43,6 +44,11 @@ remove_user_db() { rm users.db ; }
 is_not_in_user_db() {
     grep -q "${1}" users.db
     [[ $? != 0 ]] || { echo "ERROR: ${1} is still in users.db"; }
+}
+
+is_in_user_db() {
+    grep -q "${1}" users.db
+    [[ $? == 0 ]] || { echo "ERROR: ${1} is not in users.db"; }
 }
 
 tests
