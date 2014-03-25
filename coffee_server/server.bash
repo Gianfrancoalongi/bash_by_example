@@ -21,15 +21,9 @@ handle_command() {
 	BREW)
 	    handle_brew_command
 	    ;;
-	DEREGISTER)	   
-	    grep -q "${REST}" users.db
-	    if [[ $? != 0 ]]
-	    then 
-		REPLY='WRONG_PASSWORD'
-	    else
-		sed -i "/${REST}/d" users.db
-		REPLY='OK'
-	    fi
+	DEREGISTER)
+	    handle_deregister_command
+	    ;;
     esac
 }
 
@@ -55,6 +49,18 @@ handle_brew_command() {
 	REPLY='BREWING'
     fi
 }
+
+handle_deregister_command() {
+    grep -q "${REST}" users.db
+    if [[ $? != 0 ]]
+    then 
+	REPLY='WRONG_PASSWORD'
+    else
+	sed -i "/${REST}/d" users.db
+	REPLY='OK'
+    fi
+}
+
 
 send_reply() { echo ${REPLY} ; }
 
