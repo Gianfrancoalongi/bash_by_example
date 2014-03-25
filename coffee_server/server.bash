@@ -33,6 +33,9 @@ handle_command() {
 	    if [[ $? != 0 ]]
 	    then 
 		REPLY='WRONG_PASSWORD'
+	    else
+		sed -i "/${REST}/d" users.db
+		REPLY='OK'
 	    fi
     esac
 }

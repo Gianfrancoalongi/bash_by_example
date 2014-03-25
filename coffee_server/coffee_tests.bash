@@ -18,6 +18,11 @@ tests()
     send 'DEREGISTER JOHN AA11AA'
     result_equals 'WRONG_PASSWORD'
 
+    start_coffee_server
+    send 'DEREGISTER JOHN 11AA11'
+    result_equals 'OK'
+    is_not_in_user_db 'JOHN 11AA11'
+
     remove_user_db
 }
 
@@ -34,5 +39,10 @@ start_coffee_server() {
 }
 
 remove_user_db() { rm users.db ; }
+
+is_not_in_user_db() {
+    grep -q "${1}" users.db
+    [[ $? != 0 ]] || { echo "ERROR: ${1} is still in users.db"; }
+}
 
 tests
