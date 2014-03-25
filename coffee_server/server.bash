@@ -19,7 +19,14 @@ handle_command() {
 	    handle_register_command
 	    ;;
 	BREW)
-	    handle_brew_command
+	    handle_brew_command	    
+	    ;;
+	TAKE_BREWED)
+	    grep -q "${REST}" users.db
+	    if [[ $? != 0 ]]
+	    then
+		REPLY='WRONG_PASSWORD'
+	    fi
 	    ;;
 	DEREGISTER)
 	    handle_deregister_command
