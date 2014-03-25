@@ -10,6 +10,10 @@ tests()
     send 'BREW JOHN AA11AA'
     result_equals 'WRONG_PASSWORD'
 
+    start_coffee_server
+    send 'BREW JOHN 11AA11'
+    result_equals 'BREWING'
+
     remove_user_db
 }
 

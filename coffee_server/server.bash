@@ -24,6 +24,8 @@ handle_command() {
 	    if [[ $? != 0 ]]
 	    then
 		REPLY='WRONG_PASSWORD'
+	    else
+		REPLY='BREWING'
 	    fi
 	    ;;
     esac
