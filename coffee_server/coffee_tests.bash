@@ -22,6 +22,10 @@ tests()
     result_equals 'WRONG_PASSWORD'
 
     start_coffee_server
+    send 'TAKE_BREWED JOHN 11AA11'
+    result_equals 'NOTHING_BREWED'
+
+    start_coffee_server
     send 'BREW JOHN 11AA11'
     result_equals 'BREWING'
 

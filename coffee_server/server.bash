@@ -26,6 +26,12 @@ handle_command() {
 	    if [[ $? != 0 ]]
 	    then
 		REPLY='WRONG_PASSWORD'
+	    else
+		grep -q "${REST}" brewing.db &> /dev/null
+		if [[ $? != 0 ]]
+		then
+		    REPLY='NOTHING_BREWED'
+		fi
 	    fi
 	    ;;
 	DEREGISTER)
