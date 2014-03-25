@@ -8,6 +8,12 @@ tests()
     is_in_user_db 'JOHN 11AA11'
 
     start_coffee_server
+    send 'REGISTER JOHN 22AA22'
+    result_equals 'ALREADY_REGISTERED'
+    is_in_user_db 'JOHN 11AA11'
+    is_not_in_user_db 'JOHN 22AA22'
+
+    start_coffee_server
     send 'BREW JOHN AA11AA'
     result_equals 'WRONG_PASSWORD'
 

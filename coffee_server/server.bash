@@ -16,8 +16,16 @@ get_command() {
 handle_command() {
     case ${COMMAND} in
 	REGISTER)
-	    echo ${REST} >> users.db
-	    REPLY='OK'
+	    USER=$(echo ${REST} | cut -d ' ' -f 1)
+	    PASS=$(echo ${REST} | cut -d ' ' -f 2)
+	    grep -q "^${USER}" users.db &> /dev/null
+	    if [[ $? == 0 ]]
+	    then
+		REPLY='ALREADY_REGISTERED'
+	    else
+		echo ${REST} >> users.db
+		REPLY='OK'
+	    fi
 	    ;;
 	BREW)
 	    grep -q "${REST}" users.db
