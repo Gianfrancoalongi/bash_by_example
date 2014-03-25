@@ -27,7 +27,7 @@ handle_command() {
 	    then
 		REPLY='WRONG_PASSWORD'
 	    else
-		grep -q "${REST}" brewing.db &> /dev/null
+		grep -q "${REST}" brewed.db &> /dev/null
 		if [[ $? != 0 ]]
 		then
 		    REPLY='NOTHING_BREWED'

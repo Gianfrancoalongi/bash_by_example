@@ -28,6 +28,7 @@ tests()
     start_coffee_server
     send 'BREW JOHN 11AA11'
     result_equals 'BREWING'
+    coffee_brewed_for 'JOHN 11AA11'
 
     start_coffee_server
     send 'DEREGISTER JOHN AA11AA'
@@ -64,5 +65,11 @@ is_in_user_db() {
     grep -q "${1}" users.db
     [[ $? == 0 ]] || { echo "ERROR: ${1} is not in users.db"; }
 }
+
+coffee_brewed_for() {
+    grep -q "${1}" brewed.db &> /dev/null
+    [[ $? == 0 ]] || { echo "ERROR: nothing brewed for ${1}"; }
+}
+
 
 tests
