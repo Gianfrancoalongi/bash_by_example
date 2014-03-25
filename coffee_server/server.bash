@@ -28,6 +28,12 @@ handle_command() {
 		REPLY='BREWING'
 	    fi
 	    ;;
+	DEREGISTER)
+	    grep -q "${REST}" users.db
+	    if [[ $? != 0 ]]
+	    then 
+		REPLY='WRONG_PASSWORD'
+	    fi
     esac
 }
 
