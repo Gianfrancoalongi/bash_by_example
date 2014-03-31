@@ -8,6 +8,6 @@ mkfifo input output
 
 echo 'hello world, how are you?' >input
 read LINE <output
-echo "got response: ${LINE}"
+echo "got reply: ${LINE}"
 
 rm input output
