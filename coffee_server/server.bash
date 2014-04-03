@@ -59,7 +59,8 @@ handle_brew_command() {
     then
 	REPLY='WRONG_PASSWORD'
     else
-	REPLY='BREWING'
+	echo ${REST} >> brewed.db
+	REPLY='BREWING'	
     fi
 }
 
