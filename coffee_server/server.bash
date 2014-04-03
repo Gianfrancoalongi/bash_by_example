@@ -31,6 +31,9 @@ handle_command() {
 		if [[ $? != 0 ]]
 		then
 		    REPLY='NOTHING_BREWED'
+		else
+		    sed -i "/${REST}/d" brewed.db
+		    REPLY='COFFEE_REMOVED'
 		fi
 	    fi
 	    ;;

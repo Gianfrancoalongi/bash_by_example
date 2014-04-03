@@ -31,6 +31,11 @@ tests()
     coffee_brewed_for 'JOHN 11AA11'
 
     start_coffee_server
+    send 'TAKE_BREWED JOHN 11AA11'
+    result_equals 'COFFEE_REMOVED'
+    no_coffee_brewed_for 'JOHN 11AA11'
+
+    start_coffee_server
     send 'DEREGISTER JOHN AA11AA'
     result_equals 'WRONG_PASSWORD'
 
@@ -74,5 +79,9 @@ coffee_brewed_for() {
     [[ $? == 0 ]] || { echo "ERROR: nothing brewed for ${1}"; }
 }
 
+no_coffee_brewed_for() {
+    grep -q "${1}" brewed.db &> /dev/null
+    [[ $? != 0 ]] || { echo "ERROR: coffee still waiting for ${1}"; }
+}    
 
 tests
