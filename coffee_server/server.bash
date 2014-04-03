@@ -2,9 +2,12 @@
 
 main() 
 {
-    get_command
-    handle_command
-    send_reply
+    while :
+    do
+	get_command
+	handle_command
+	send_reply
+    done
 }
 
 get_command() { 
