@@ -19,21 +19,21 @@ get_command() {
 handle_command() {
     case ${COMMAND} in
 	REGISTER)
-	    handle_register_command
+	    handle_register
 	    ;;
 	BREW)
-	    handle_brew_command	    
+	    handle_brew	    
 	    ;;
 	TAKE_BREWED)
-	    handle_take_brewed_command
+	    handle_take_brewed
 	    ;;
 	DEREGISTER)
-	    handle_deregister_command
+	    handle_deregister
 	    ;;
     esac
 }
 
-handle_register_command() {
+handle_register() {
     USER=$(echo ${REST} | cut -d ' ' -f 1)
     grep -q "^${USER}" users.db &> /dev/null
     if [[ $? == 0 ]]
@@ -45,7 +45,7 @@ handle_register_command() {
     fi
 }
 
-handle_brew_command() {
+handle_brew() {
     grep -q "${REST}" users.db
     if [[ $? != 0 ]]
     then
@@ -62,7 +62,7 @@ handle_brew_command() {
     fi
 }
 
-handle_deregister_command() {
+handle_deregister() {
     grep -q "${REST}" users.db
     if [[ $? != 0 ]]
     then 
@@ -73,7 +73,7 @@ handle_deregister_command() {
     fi
 }
 
-handle_take_brewed_command() {
+handle_take_brewed() {
     grep -q "${REST}" users.db
     if [[ $? != 0 ]]
     then
