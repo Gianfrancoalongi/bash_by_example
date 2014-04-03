@@ -14,10 +14,6 @@ tests()
     is_not_in_user_db 'JOHN 22AA22'
 
     start_coffee_server
-    send 'BREW JOHN AA11AA'
-    result_equals 'WRONG_PASSWORD'
-
-    start_coffee_server
     send 'TAKE_BREWED JOHN AA11AA'
     result_equals 'WRONG_PASSWORD'
 
@@ -26,8 +22,17 @@ tests()
     result_equals 'NOTHING_BREWED'
 
     start_coffee_server
+    send 'BREW JOHN AA11AA'
+    result_equals 'WRONG_PASSWORD'
+
+    start_coffee_server
     send 'BREW JOHN 11AA11'
     result_equals 'BREWING'
+    coffee_brewed_for 'JOHN 11AA11'
+
+    start_coffee_server
+    send 'BREW JOHN 11AA11'
+    result_equals 'ALREADY_BREWED'
     coffee_brewed_for 'JOHN 11AA11'
 
     start_coffee_server

@@ -52,8 +52,14 @@ handle_brew_command() {
     then
 	REPLY='WRONG_PASSWORD'
     else
-	echo ${REST} >> brewed.db
-	REPLY='BREWING'	
+	grep -q "${REST}" brewed.db &> /dev/null
+	if [[ $? == 0 ]]
+	then
+	    REPLY='ALREADY_BREWED'
+	else
+	    echo ${REST} >> brewed.db
+	    REPLY='BREWING'
+	fi
     fi
 }
 
