@@ -49,8 +49,13 @@ tests()
     result_equals 'OK'
     is_not_in_user_db 'JOHN 11AA11'
 
+    start_coffee_server
+    send 'UNSUPPORTED COMMAND FROM USER'
+    result_equals 'UNKNOWN_COMMAND'
+
     remove_user_db
     remove_brewed_db
+    echo ''
 }
 
 send() { RES=$(echo ${1} | netcat -i 1 localhost 50556); }
@@ -65,9 +70,9 @@ start_coffee_server() {
     sleep 1
 }
 
-remove_user_db() { rm users.db ; }
+remove_user_db() { rm users.db >/dev/null ; }
 
-remove_brewed_db() { rm brewed.db ; }
+remove_brewed_db() { rm brewed.db >/dev/null ; }
 
 is_not_in_user_db() {
     grep -q "${1}" users.db

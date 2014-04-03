@@ -30,6 +30,9 @@ handle_command() {
 	DEREGISTER)
 	    handle_deregister
 	    ;;
+	*)
+	    handle_unknown
+	    ;;
     esac
 }
 
@@ -89,6 +92,8 @@ handle_take_brewed() {
 	fi
     fi
 }
+
+handle_unknown() { REPLY='UNKNOWN_COMMAND'; }
 
 send_reply() { echo ${REPLY} ; }
 
