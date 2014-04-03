@@ -35,7 +35,6 @@ handle_command() {
 
 handle_register_command() {
     USER=$(echo ${REST} | cut -d ' ' -f 1)
-    PASS=$(echo ${REST} | cut -d ' ' -f 2)
     grep -q "^${USER}" users.db &> /dev/null
     if [[ $? == 0 ]]
     then
