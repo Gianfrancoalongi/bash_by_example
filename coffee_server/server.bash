@@ -22,20 +22,7 @@ handle_command() {
 	    handle_brew_command	    
 	    ;;
 	TAKE_BREWED)
-	    grep -q "${REST}" users.db
-	    if [[ $? != 0 ]]
-	    then
-		REPLY='WRONG_PASSWORD'
-	    else
-		grep -q "${REST}" brewed.db &> /dev/null
-		if [[ $? != 0 ]]
-		then
-		    REPLY='NOTHING_BREWED'
-		else
-		    sed -i "/${REST}/d" brewed.db
-		    REPLY='COFFEE_REMOVED'
-		fi
-	    fi
+	    handle_take_brewed_command
 	    ;;
 	DEREGISTER)
 	    handle_deregister_command
@@ -78,6 +65,22 @@ handle_deregister_command() {
     fi
 }
 
+handle_take_brewed_command() {
+    grep -q "${REST}" users.db
+    if [[ $? != 0 ]]
+    then
+	REPLY='WRONG_PASSWORD'
+    else
+	grep -q "${REST}" brewed.db &> /dev/null
+	if [[ $? != 0 ]]
+	then
+	    REPLY='NOTHING_BREWED'
+	else
+	    sed -i "/${REST}/d" brewed.db
+	    REPLY='COFFEE_REMOVED'
+	fi
+    fi
+}
 
 send_reply() { echo ${REPLY} ; }
 
